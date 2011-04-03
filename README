@@ -1,0 +1,93 @@
+Hi.
+
+This is my character frequency tool. I use it
+to study text documents via the command line.
+
+==================================
+Here's how it works:
+==================================
+
+If you stick this script in your path and turn
+on the executable flag, you should be able to
+run this simply by typing 'charfreq.py'. If not,
+you can always type 'python charfreq.py'. It
+works all the same.
+
+charfreq.py my_text_document.txt
+
+This passes my_text_document.txt to charfreq.py
+with the default parameters. This studies each
+single character in the document. If you wish
+to study pairs of characters, chance the window
+to '2' with the '-w' flag.
+
+For example, let's study the alphabet. With the
+window size set to 2, here are all of the pairs:
+
+$ echo {a..z} | tr -d ' ' > alphabet.txt
+$ charfreq.py alphabet.txt -w 2
+mn:    1
+ab:    1
+ef:    1
+qr:    1
+wx:    1
+kl:    1
+yz:    1
+ij:    1
+st:    1
+op:    1
+cd:    1
+uv:    1
+gh:    1
+
+So the program will roll forward two spaces for
+the next pair. This is great if you know that the
+data is already divided into pairs. What if you
+aren't sure. What if you want to study how many
+times a letter appears after another letter (similar
+to how a Hidden Markov Model works). Set the window
+to 2 and the roll to 1 (I also used '-s' to skip spaces):
+
+$ charfreq.py alphabet.txt -w 2 -r 1 -s
+ab:    1
+ef:    1
+cd:    1
+tu:    1
+ij:    1
+vw:    1
+kl:    1
+jk:    1
+gh:    1
+pq:    1
+rs:    1
+lm:    1
+de:    1
+bc:    1
+uv:    1
+yz:    1
+hi:    1
+no:    1
+fg:    1
+wx:    1
+qr:    1
+mn:    1
+st:    1
+xy:    1
+op:    1
+
+==================================
+Help Screen
+==================================
+
+Usage: charfreq.py [options] [YOUR FILE]
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -w WINDOW, --window=WINDOW
+                        Windows Size (Default WINDOW=1)
+  -r ROLL, --roll=ROLL  Rolling Window (Shift window by ROLL rather than
+                        WINDOW)
+  -s, --skipspaces      Skip Space Characters [ \t\r\n]
+  -g, --graph           Create an ASCII graph of the results.
+
