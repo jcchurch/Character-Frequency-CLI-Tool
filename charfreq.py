@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import sys, optparse, re
+import sys, optparse, re, string
 
 def group(message, window, shift=-1, skipspaces=True):
 
@@ -31,6 +31,27 @@ def frequency(tokens):
     rank_first.sort(lambda (a,b),(c,d): c-a)
     return rank_first
 
+def printEntry(key, freq, windowSize, doGraph):
+
+    graph = " "
+    if doGraph:
+        graph = "X"*freq
+
+    ordinals = ""
+    for c in key:
+        ordinals += str(ord(c))
+
+    description = ""
+    for c in key:
+        if c ==  "\n":
+            description += "?"
+        elif c in string.printable:
+            description += c
+        else:
+            description += "?"
+
+    print "%10s : %s : %s%s" % (freq, ordinals, description, graph)
+
 def main():
     usage = "usage: %prog [options] [YOUR FILE]"
     p = optparse.OptionParser(usage = usage, version='0.1')
@@ -48,18 +69,8 @@ def main():
     tokens = group(message, options.window, options.roll, options.skipspaces)
     rank_first = frequency(tokens)
 
-    if options.graph == False:
-        for (f, key) in rank_first:
-            if options.window == 1:
-                print "%s [%2x]: %4s" % (key, ord(key), f)
-            else:
-                print "%s: %4s" % (key, f)
-    else:
-        for (f, key) in rank_first:
-            if options.window == 1:
-                print "%s [%2x]: %4s : %s" % (key, ord(key), f, "X"*f)
-            else:
-                print "%s: %4s : %s" % (key, f, "X"*f)
+    for (f, key) in rank_first:
+        printEntry(key, f, options.window, options.graph)
 
     return 0
 
