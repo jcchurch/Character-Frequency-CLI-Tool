@@ -89,5 +89,3 @@ Options:
   -r ROLL, --roll=ROLL  Rolling Window (Shift window by ROLL rather than
                         WINDOW)
   -s, --skipspaces      Skip Space Characters [ \t\r\n]
-  -g, --graph           Create an ASCII graph of the results.
-
