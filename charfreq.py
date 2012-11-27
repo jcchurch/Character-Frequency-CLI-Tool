@@ -31,11 +31,7 @@ def frequency(tokens):
     rank_first.sort(lambda (a,b),(c,d): c-a)
     return rank_first
 
-def printEntry(key, freq, windowSize, doGraph):
-
-    graph = ""
-    if doGraph:
-        graph = "X"*freq
+def printEntry(key, freq, windowSize):
 
     ordinals = ""
     for c in key:
@@ -56,7 +52,7 @@ def printEntry(key, freq, windowSize, doGraph):
         else:
             description += "?"
 
-    print "%10s : %3s : %2s %s" % (freq, ordinals, description, graph)
+    print "%10s : %3s : %2s" % (freq, ordinals, description)
 
 def main():
     usage = "usage: %prog [options] [YOUR FILE]"
@@ -64,7 +60,6 @@ def main():
     p.add_option('--window', '-w', action="store", type="int", help="Windows Size (Default WINDOW=1)", default=1)
     p.add_option('--roll', '-r', action="store", type="int", help="Rolling Window (Shift window by ROLL rather than WINDOW)", default=-1)
     p.add_option('--skipspaces', '-s', action="store_true", help="Skip Space Characters [ \\t\\r\\n]", default=False)
-    p.add_option('--graph', '-g', action="store_true", help="Create an ASCII graph of the results.", default=False)
     options, arguments = p.parse_args()
 
     if len(arguments) != 1:
@@ -76,7 +71,7 @@ def main():
     rank_first = frequency(tokens)
 
     for (f, key) in rank_first:
-        printEntry(key, f, options.window, options.graph)
+        printEntry(key, f, options.window)
 
     return 0
 
