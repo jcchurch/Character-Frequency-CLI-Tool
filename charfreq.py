@@ -56,7 +56,7 @@ def printEntry(key, freq, windowSize, doGraph):
         else:
             description += "?"
 
-    print "%10s : %s : %2s %s" % (freq, ordinals, description, graph)
+    print "%10s : %3s : %2s %s" % (freq, ordinals, description, graph)
 
 def main():
     usage = "usage: %prog [options] [YOUR FILE]"
