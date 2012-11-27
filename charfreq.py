@@ -33,7 +33,7 @@ def frequency(tokens):
 
 def printEntry(key, freq, windowSize, doGraph):
 
-    graph = " "
+    graph = ""
     if doGraph:
         graph = "X"*freq
 
@@ -44,13 +44,19 @@ def printEntry(key, freq, windowSize, doGraph):
     description = ""
     for c in key:
         if c ==  "\n":
-            description += "?"
+            description += "\\n"
+        elif c ==  "\t":
+            description += "\\t"
+        elif c ==  "\r":
+            description += "\\r"
+        elif c ==  " ":
+            description += "\\s"
         elif c in string.printable:
             description += c
         else:
             description += "?"
 
-    print "%10s : %s : %s%s" % (freq, ordinals, description, graph)
+    print "%10s : %s : %2s %s" % (freq, ordinals, description, graph)
 
 def main():
     usage = "usage: %prog [options] [YOUR FILE]"
